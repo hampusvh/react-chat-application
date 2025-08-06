@@ -35,29 +35,32 @@ function Login() {
     };
 
     return (
-        <div className="auth-container">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={form.username}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={form.password}
-                    onChange={handleChange}
-                    required
-                />
-                {error && <p className="error">{error}</p>}
-                <button type="submit">Log in</button>
-            </form>
-            <p>Don't have an account? <Link to="/register">Sign up!</Link></p>
+        <div className="login-page">
+
+            <div className="auth-container">
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={form.username}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={form.password}
+                        onChange={handleChange}
+                        required
+                    />
+                    {error && <p className="error">{error}</p>}
+                    <button type="submit">Log in</button>
+                </form>
+                <p>Don't have an account? <Link to="/register">Sign up!</Link></p>
+            </div>
         </div>
     );
 }
