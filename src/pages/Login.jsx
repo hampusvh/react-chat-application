@@ -35,7 +35,7 @@ function Login() {
     };
 
     return (
-        <div className="login-page">
+        <div className="auth-page">
 
             <div className="auth-container">
                 <h2>Login</h2>
@@ -46,7 +46,7 @@ function Login() {
                         placeholder="Username"
                         value={form.username}
                         onChange={handleChange}
-                        required
+
                     />
                     <input
                         type="password"
@@ -54,10 +54,10 @@ function Login() {
                         placeholder="Password"
                         value={form.password}
                         onChange={handleChange}
-                        required
+
                     />
                     {error && <p className="error">{error}</p>}
-                    <button type="submit">Log in</button>
+                    <button className="auth-button" type="submit">Log in</button>
                 </form>
                 <p>Don't have an account? <Link to="/register">Sign up!</Link></p>
             </div>
