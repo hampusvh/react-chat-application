@@ -1,6 +1,8 @@
 
 import { useNavigate } from "react-router-dom";
 
+import "../styles/SideNav.css";
+
 function SideNav() {
     const navigate = useNavigate();
 
@@ -16,7 +18,7 @@ function SideNav() {
         <aside className="sidenav">
             <div className="user-info">
                 <img src={avatar} alt="avatar" className="avatar" />
-                <p>{username}</p>
+                <p className="user-name">{username}</p>
             </div>
             <button onClick={() => navigate("/profile")} className="profile-button">
                 Profil

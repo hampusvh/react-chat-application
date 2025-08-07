@@ -1,0 +1,12 @@
+.chat-page {
+    display: flex;
+    height: 100vh; /* hela skärmen i höjd */
+    background-color: black;
+    color: white;
+}
+
+.chat-content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}

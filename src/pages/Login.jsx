@@ -11,6 +11,8 @@ function Login() {
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
+        if (error) setError("");
+
     };
 
     const handleSubmit = async (e) => {
