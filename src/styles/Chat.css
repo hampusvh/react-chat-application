@@ -1,0 +1,23 @@
+.chat-page {
+    display: flex;
+    height: 100vh;
+    /* hela skärmen i höjd */
+    background-color: black;
+    color: rgb(161, 160, 160);
+}
+
+.chat-content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.message-output {
+    height: 50%;
+    background-color: #2c2f48;
+}
+
+.message-input {
+    margin-top: 10%;
+    background-color: #2c2f48;
+}
