@@ -6,8 +6,11 @@ const Chat = () => {
         <div className="chat-page">
             <SideNav />
             <main className="chat-content">
-
-                <p>Välkommen till chatten!</p>
+                <div className="message-output">
+                    Message output
+                </div>
+                <input className="message-input">
+                </input>
             </main>
         </div>
     );

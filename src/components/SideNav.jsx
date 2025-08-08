@@ -21,10 +21,10 @@ function SideNav() {
                 <p className="user-name">{username}</p>
             </div>
             <button onClick={() => navigate("/profile")} className="profile-button">
-                Profil
+                Profile settings
             </button>
             <button onClick={handleLogout} className="logout-button">
-                Logout
+                Sign out
             </button>
         </aside>
     );
