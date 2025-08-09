@@ -9,8 +9,13 @@ const Chat = () => {
                 <div className="message-output">
                     Message output
                 </div>
-                <input className="message-input">
-                </input>
+                <div className="composer">
+                    <input className="message-input"
+                        type="text"
+                        placeholder="write your message here"
+                    />
+                    <button className="send-btn" type="button">Send</button>
+                </div>
             </main>
         </div>
     );
