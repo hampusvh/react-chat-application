@@ -1,55 +1,43 @@
-:root {
-    --bg: #f5f6fa;
-    --panel: #ffffff;
-    --border: #e6e8eb;
-}
-
-.chat-layout {
+.chat-wrapper {
     display: flex;
+    justify-content: center;
     height: 100vh;
-    background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+    width: 100%;
+    margin: auto;
+    gap: 5px;
+    background: rgb(61, 61, 81);
     color: #1b1f23;
-    padding: 3rem;
-    /* luft runt alla kanter */
+    padding: 24px;
     box-sizing: border-box;
-    /* så padding inte ökar storleken */
 }
 
-.chat-main {
+.chat-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 3rem;
     gap: .75rem;
-    /* luft mellan listan och composer */
     overflow: hidden;
-    /* så bara listan scrollar */
-    background: black;
+    background: #1e1e2f;
+    min-height: 0;
+    width: 100%;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    gap: .75rem;
-}
-
-.chat-body {
+.chat-output {
     flex: 1;
-    /* fyller ut höjden */
+    min-height: 0;
     overflow-y: auto;
-    /* gör listan scrollbar */
-    background: var(--panel);
-    border: 1px solid var(--border);
+    background: rgb(90, 90, 90);
     border-radius: 10px;
     padding: 1rem;
+    color: rgb(140, 191, 218);
+
 }
 
 .chat-composer {
     display: flex;
     gap: .5rem;
-    background: var(--panel);
-    border: 1px solid var(--border);
+    background: rgb(90, 90, 90);
     border-radius: 10px;
     padding: .5rem;
 }
@@ -57,18 +45,19 @@
 .composer-input {
     flex: 1;
     height: 42px;
-    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0 .75rem;
-    background: white;
+    background: rgb(61, 61, 61);
+    color: rgb(140, 191, 218);
+    outline: none;
+
 }
 
-.composer-send {
+.send-button {
     height: 42px;
     padding: 0 1rem;
-    border: 1px solid var(--border);
     border-radius: 8px;
     background: #7881ff;
-    /* neutral placeholder-stil */
     cursor: pointer;
+    width: 100px;
 }
