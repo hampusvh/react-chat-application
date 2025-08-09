@@ -5,7 +5,7 @@
     width: 100%;
     margin: auto;
     gap: 5px;
-    background: rgb(61, 61, 81);
+    background: #101522;
     color: #1b1f23;
     padding: 24px;
     box-sizing: border-box;
@@ -18,7 +18,7 @@
     padding: 3rem;
     gap: .75rem;
     overflow: hidden;
-    background: #1e1e2f;
+    background: linear-gradient(180deg, #1a1f36, #111522);
     min-height: 0;
     width: 100%;
 }
@@ -27,7 +27,7 @@
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    background: rgb(90, 90, 90);
+    background: #0e1624;
     border-radius: 10px;
     padding: 1rem;
     color: rgb(140, 191, 218);
@@ -37,7 +37,7 @@
 .chat-composer {
     display: flex;
     gap: .5rem;
-    background: rgb(90, 90, 90);
+    background: #1f2937;
     border-radius: 10px;
     padding: .5rem;
 }
@@ -47,7 +47,7 @@
     height: 42px;
     border-radius: 8px;
     padding: 0 .75rem;
-    background: rgb(61, 61, 61);
+    background: #111827;
     color: rgb(140, 191, 218);
     outline: none;
 
@@ -57,7 +57,8 @@
     height: 42px;
     padding: 0 1rem;
     border-radius: 8px;
-    background: #7881ff;
+    background: linear-gradient(90deg, #6d28d9, #3b82f6);
     cursor: pointer;
     width: 100px;
+    color: #ffffff;
 }
