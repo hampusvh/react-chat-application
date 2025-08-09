@@ -3,14 +3,24 @@ import "../styles/Chat.css";
 
 const Chat = () => {
     return (
-        <div className="chat-page">
-            <SideNav />
-            <main className="chat-content">
-                <div className="message-output">
-                    Message output
+        <div className="chat-layout">
+            <SideNav />               {/* aside i sin egen komponent */}
+
+            <main className="chat-main">
+                <div className="container">
+                    <div className="chat-body">
+                        Message output
+                    </div>
+
+                    <div className="chat-composer">
+                        <input
+                            className="composer-input"
+                            type="text"
+                            placeholder="write your message here"
+                        />
+                        <button className="composer-send" type="button">Send</button>
+                    </div>
                 </div>
-                <input className="message-input">
-                </input>
             </main>
         </div>
     );
