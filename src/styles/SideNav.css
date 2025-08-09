@@ -1,6 +1,6 @@
 .sidenav {
     width: 250px;
-    height: 100vh;
+    height: 100%;
     background-color: #1e1e2f;
     color: white;
     padding: 1rem;
@@ -8,7 +8,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-right: 1px solid #444;
 }
 
 .user-info {
