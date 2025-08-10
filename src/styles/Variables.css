@@ -1,0 +1,23 @@
+:root {
+    --bg: #2b2f33;
+    --panel-grad-1: #353a3f;
+    --panel-grad-2: #2f3439;
+    --surface: #3b4147;
+    --surface-2: #444b52;
+    --input: #383e44;
+
+    --text: #f1f5f9;
+    --text-soft: #d0d6db;
+
+    --accent: #2563eb;
+    --accent-strong: #3b82f6;
+    --on-accent: #ffffff;
+
+    --danger: #f43f5e;
+    --danger-strong: #fb7185;
+    --on-danger: #ffffff;
+
+    --radius-lg: 12px;
+    --radius-md: 10px;
+    --radius-sm: 8px;
+}
