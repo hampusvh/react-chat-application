@@ -19,16 +19,17 @@ function SideNav() {
             <div className="user-info">
                 <img src={avatar} alt="avatar" className="avatar" />
                 <p className="user-name">{username}</p>
+
+                <button onClick={() => navigate("/profile")} className="profile-button">
+                    ⚙
+                </button>
             </div>
-            <button onClick={() => navigate("/profile")} className="profile-button">
-                Profile settings
-            </button>
-            <button onClick={handleLogout} className="logout-button">
-                Sign out
-            </button>
             <div className="message-list-placeholder">
                 <p>No conversations yet</p>
             </div>
+            <button onClick={handleLogout} className="logout-button">
+                Sign out
+            </button>
         </aside>
     );
 }

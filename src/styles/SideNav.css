@@ -2,7 +2,7 @@
 @import "./Variables.css";
 
 .sidenav {
-    width: 250px;
+    width: 290px;
     min-height: 100%;
     background: linear-gradient(to bottom, var(--panel-grad-1), var(--panel-grad-2));
     color: var(--text);
@@ -36,26 +36,45 @@
     font-size: 20px;
 }
 
+/* ersätt hela .profile-button-blocket med: */
 .profile-button {
     padding: .5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
-    border: none;
     width: 100%;
-    border-radius: var(--radius-md);
-    background: linear-gradient(to right, var(--accent-strong), var(--accent));
-    color: var(--on-accent);
+    height: 40px;
+
+    background: var(--secondary-bg);
+    color: var(--secondary-text);
+    border: 1px solid var(--secondary-border);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
 }
 
+/* ersätt .logout-button med: */
 .logout-button {
     margin-top: .5rem;
     padding: .5rem 1rem;
-    border-radius: var(--radius-md);
-    border: none;
-    color: var(--on-danger);
-    cursor: pointer;
     width: 100%;
-    background: linear-gradient(to right, var(--danger-strong), var(--danger));
+    height: 40px;
+
+    background: var(--danger-bg);
+    color: var(--danger-text);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* valfritt men trevligt: små hovers */
+.profile-button:hover {
+    background: var(--surface);
+}
+
+.logout-button:hover {
+    background: var(--danger-hover-bg);
+    color: var(--danger-hover-text);
+    border-color: var(--danger-hover-bg);
 }
 
 .message-list-placeholder {

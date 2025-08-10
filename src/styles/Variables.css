@@ -1,21 +1,31 @@
 :root {
-    --bg: #2b2f33;
-    --panel-grad-1: #353a3f;
-    --panel-grad-2: #2f3439;
-    --surface: #3b4147;
-    --surface-2: #444b52;
-    --input: #383e44;
+    --bg: #181b1f;
+    --panel-grad-1: #1f2328;
+    --panel-grad-2: #1a1e23;
+    --surface: #24292f;
+    --surface-2: #2c3138;
+    --input: #202428;
 
-    --text: #f1f5f9;
-    --text-soft: #d0d6db;
+    --text: #f8fafc;
+    --text-soft: #cbd5e1;
 
-    --accent: #2563eb;
-    --accent-strong: #3b82f6;
-    --on-accent: #ffffff;
+    /* Accent färger – används nu för chat-relaterade actions, inte Profile */
+    --accent: #06b6d4;
+    --accent-strong: #22d3ee;
+    --on-accent: #00272b;
 
-    --danger: #f43f5e;
-    --danger-strong: #fb7185;
-    --on-danger: #ffffff;
+    /* Diskreta knappar (Profile settings) */
+    --secondary-bg: var(--surface-2);
+    --secondary-text: var(--text);
+    --secondary-border: var(--panel-grad-2);
+
+    /* Danger (Logout) – nedtonad default, röd på hover */
+    --danger-bg: var(--surface-2);
+    --danger-text: #f87171;
+    /* mild röd text */
+    --danger-border: #2e2e2e;
+    --danger-hover-bg: #f87171;
+    --danger-hover-text: #ffffff;
 
     --radius-lg: 12px;
     --radius-md: 10px;
