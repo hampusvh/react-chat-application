@@ -1,22 +1,26 @@
+/* SideNav.css */
+@import "./Variables.css";
+
 .sidenav {
     width: 250px;
     min-height: 100%;
-    background-color: #1e1e2f;
-    color: white;
+    background: linear-gradient(to bottom, var(--panel-grad-1), var(--panel-grad-2));
+    color: var(--text);
     padding: 1rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: var(--radius-lg);
 }
 
 .user-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(48, 47, 47);
+    background-color: var(--surface);
     width: 100%;
-    border-radius: 10%;
+    border-radius: var(--radius-lg);
 }
 
 .avatar {
@@ -28,29 +32,45 @@
 }
 
 .user-name {
-    color: rgb(140, 191, 218);
+    color: var(--accent-strong);
     font-size: 20px;
 }
 
 .profile-button {
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
     border: none;
     width: 100%;
-    border-radius: 10px;
-    background: linear-gradient(to right, #6366f1, #8b5cf6);
+    border-radius: var(--radius-md);
+    background: linear-gradient(to right, var(--accent-strong), var(--accent));
+    color: var(--on-accent);
 }
 
 .logout-button {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: transparent;
-    border-radius: 10px;
+    margin-top: .5rem;
+    padding: .5rem 1rem;
+    border-radius: var(--radius-md);
     border: none;
-    color: white;
+    color: var(--on-danger);
     cursor: pointer;
     width: 100%;
-    background: linear-gradient(to right, #f16368, #8b5cf6);
+    background: linear-gradient(to right, var(--danger-strong), var(--danger));
+}
 
+.message-list-placeholder {
+    margin-top: 1rem;
+    flex: 1;
+    /* så att den fyller ut utrymmet under knapparna */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 1rem;
+    opacity: 0.7;
+    width: 100%;
 }

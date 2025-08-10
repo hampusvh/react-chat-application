@@ -26,6 +26,9 @@ function SideNav() {
             <button onClick={handleLogout} className="logout-button">
                 Sign out
             </button>
+            <div className="message-list-placeholder">
+                <p>No conversations yet</p>
+            </div>
         </aside>
     );
 }
