@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import SideNav from "../components/SideNav";
 import "../styles/Chat.css";
-import { getMessages } from "../api/messages";
+import { getMessages, sendMessage, deleteMessage } from "../api/messages";
 import { decodeToken } from "../utils/jwt";
+import { getCsrfToken } from "../api/auth";
+
 
 
 const Chat = () => {
@@ -12,6 +14,10 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [status, setStatus] = useState("idle"); // idle | loading | error
     const [error, setError] = useState("");
+
+    const [inputText, setInputText] = useState("");
+    const [isSending, setIsSending] = useState(false);
+
 
     useEffect(() => {
         let isMounted = true;
@@ -41,6 +47,59 @@ const Chat = () => {
         return () => { isMounted = false; };
     }, [token]);
 
+    const handleChange = (e) => {
+        setInputText(e.target.value);
+    };
+
+    const handleSend = async () => {
+        const text = inputText.trim();
+        if (!text) return;
+
+        try {
+            setIsSending(true);
+            const { csrfToken } = await getCsrfToken();
+            await sendMessage({ token, text, conversationId: null, csrfToken });
+
+            // Hämta uppdaterade meddelanden
+            const fresh = await getMessages(token);
+            setMessages(fresh);
+            setInputText("");
+        } catch (err) {
+            console.error("Kunde inte skicka meddelande:", err);
+            setError(err.message);
+        } finally {
+            setIsSending(false);
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
+    };
+
+    const handleDelete = async (id) => {
+        if (!window.confirm("Vill du radera meddelandet?")) return;
+        try {
+            const { csrfToken } = await getCsrfToken();
+            await deleteMessage({ token, id, csrfToken });
+
+            // Antingen filtrera bort direkt:
+            setMessages(prev => prev.filter(m => m.id !== id));
+
+            // ...eller refetcha:
+            // const fresh = await getMessages(token);
+            // setMessages(fresh);
+
+        } catch (err) {
+            console.error("Kunde inte radera meddelande:", err);
+            setError(err.message);
+        }
+    };
+
+
+
     return (
         <div className="chat-wrapper">
             <SideNav />
@@ -58,7 +117,16 @@ const Chat = () => {
                         const isMine = String(msg.userId) === String(myUserId);
                         return (
                             <div key={msg.id} className={`message ${isMine ? "mine" : "other"}`}>
-                                {msg.text}
+                                <span className="message-text">{msg.text}</span>
+                                {isMine && (
+                                    <button
+                                        className="delete-button"
+                                        onClick={() => handleDelete(msg.id)}
+                                        title="Radera meddelande"
+                                    >
+                                        🗑️
+                                    </button>
+                                )}
                             </div>
                         );
                     })}
@@ -69,12 +137,21 @@ const Chat = () => {
                         className="composer-input"
                         type="text"
                         placeholder="write your message here"
-                        disabled
+                        value={inputText}
+                        onChange={handleChange}
+                        onKeyDown={handleKeyDown}
+                        disabled={isSending || status === "loading"}
                     />
-                    <button className="send-button" type="button" disabled>
-                        Send
+                    <button
+                        className="send-button"
+                        type="button"
+                        onClick={handleSend}
+                        disabled={isSending || inputText.trim() === ""}
+                    >
+                        {isSending ? "Sending..." : "Send"}
                     </button>
                 </div>
+
             </main>
         </div>
     );
