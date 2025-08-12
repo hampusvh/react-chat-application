@@ -6,15 +6,13 @@
 
 ---
 
-**Chatify** är en fullständig SPA (Single Page Application) byggd med React och Vite. Den använder autentisering via JWT och kommunicerar med ett REST API för att hantera användare, meddelanden och säkerhet. Projektet följer samtliga krav enligt inlämningsuppgiften, inklusive säkerhet och VG-funktioner.
-
----
-
 ##  Funktionalitet
 
 ###  Autentisering
+
 - **Registrering** sker via `POST /auth/register`
 - **Inloggning** sker via `POST /auth/token`  
+
 - Vid lyckad inloggning returneras en **JWT-token** som innehåller:
   - användar-ID
   - användarnamn

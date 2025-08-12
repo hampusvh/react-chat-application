@@ -119,13 +119,15 @@ const Chat = () => {
                             <div key={msg.id} className={`message ${isMine ? "mine" : "other"}`}>
                                 <span className="message-text">{msg.text}</span>
                                 {isMine && (
-                                    <button
-                                        className="delete-button"
-                                        onClick={() => handleDelete(msg.id)}
-                                        title="Radera meddelande"
-                                    >
-                                        🗑️
-                                    </button>
+                                    <div className="delete-btn-wrapper">
+                                        <button
+                                            className="msg-delete-btn"
+                                            onClick={() => handleDelete(msg.id)}
+                                            title="Radera meddelande"
+                                        >
+                                            🗑️
+                                        </button>
+                                    </div>
                                 )}
                             </div>
                         );
