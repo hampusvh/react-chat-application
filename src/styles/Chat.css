@@ -33,7 +33,7 @@
     overflow-y: auto;
     background: var(--surface);
     border-radius: var(--radius-md);
-    padding: 1rem;
+    padding: 3rem;
     color: var(--text-soft);
 
 }
@@ -70,7 +70,7 @@
 }
 
 .message {
-    max-width: 30%;
+    max-width: 20%;
     padding: 8px 12px;
     border-radius: 12px;
     margin: 4px 0;
@@ -78,15 +78,27 @@
 }
 
 .message.mine {
-    background-color: #fffa9e;
+    background: linear-gradient(90deg, rgb(108, 207, 144), rgb(39, 187, 143));
     margin-left: auto;
-    /* trycker den åt höger */
     text-align: right;
 }
 
 .message.other {
     background-color: #86ffb6;
     margin-right: auto;
-    /* trycker den åt vänster */
     text-align: left;
+}
+
+.delete-btn-wrapper button {
+    visibility: hidden;
+}
+
+.delete-btn-wrapper:hover button {
+    visibility: visible;
+}
+
+.msg-delete-btn {
+    background: transparent;
+    margin-left: 1rem;
+    border: none;
 }

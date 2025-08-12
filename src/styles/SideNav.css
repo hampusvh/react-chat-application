@@ -86,6 +86,7 @@
     background: var(--danger-hover-bg);
     color: var(--danger-hover-text);
     border-color: var(--danger-hover-bg);
+    transition: 1s ease;
 }
 
 .message-list-placeholder {
