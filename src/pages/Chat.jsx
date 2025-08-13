@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import SideNav from "../components/SideNav";
 import "../styles/Chat.css";
 import { getMessages, sendMessage, deleteMessage } from "../api/messages";
-import { decodeToken } from "../utils/jwt";
 import { getCsrfToken } from "../api/auth";
 
 
@@ -13,7 +12,6 @@ const Chat = () => {
     const token = localStorage.getItem("token");
 
     const [messages, setMessages] = useState([]);
-    const [status, setStatus] = useState("idle"); // idle | loading | error
     const [error, setError] = useState("");
 
     const [inputText, setInputText] = useState("");
@@ -24,24 +22,15 @@ const Chat = () => {
         let isMounted = true;
         async function load() {
             try {
-                setStatus("loading");
                 setError("");
 
-                // ⬇️ Lägg debug här, efter att du hämtat token men innan du kallar getMessages
-                const decoded = decodeToken(token);
-                console.log("Token payload:", decoded);
-
                 const data = await getMessages(token);
-                console.log("Exempelmeddelande:", data[0]);
 
                 if (!isMounted) return;
                 setMessages(Array.isArray(data) ? data : []);
-                setStatus("idle");
             } catch (err) {
                 if (!isMounted) return;
-                setStatus("error");
                 setError(err?.message || "Kunde inte hämta meddelanden");
-                console.error("GET /messages failed:", err);
             }
         }
         load();
@@ -54,8 +43,7 @@ const Chat = () => {
 
     const handleSend = async () => {
         const text = inputText.trim();
-        if (!text) return;
-
+        if (!text || isSending) return;
         try {
             setIsSending(true);
             const { csrfToken } = await getCsrfToken();
@@ -94,7 +82,6 @@ const Chat = () => {
             // setMessages(fresh);
 
         } catch (err) {
-            console.error("Kunde inte radera meddelande:", err);
             setError(err.message);
         }
     };
@@ -107,12 +94,9 @@ const Chat = () => {
 
             <main className="chat-content">
                 <div className="chat-output">
-                    {status === "loading" && <div>Laddar...</div>}
-                    {status === "error" && <div className="error">{error}</div>}
 
-                    {status === "idle" && messages.length === 0 && (
-                        <div>Inga meddelanden ännu</div>
-                    )}
+                    {error && <div className="error">{error}</div>}
+                    {!error && messages.length === 0 && <div>Inga meddelanden ännu</div>}
 
                     {messages.map((msg) => {
                         const isMine = String(msg.userId) === String(myUserId);
@@ -143,7 +127,7 @@ const Chat = () => {
                         value={inputText}
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
-                        disabled={isSending || status === "loading"}
+                        disabled={isSending}
                     />
                     <button
                         className="send-button"
