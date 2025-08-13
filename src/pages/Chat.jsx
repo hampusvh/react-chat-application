@@ -8,6 +8,7 @@ import { getCsrfToken } from "../api/auth";
 
 
 const Chat = () => {
+
     const myUserId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
