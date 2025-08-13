@@ -1,19 +1,21 @@
 import { API_URL } from "../config/api";
 
 export async function getMessages(token) {
-  const res = await fetch(`${API_URL}/messages`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json"
+    const res = await fetch(`${API_URL}/messages`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (!res.ok) {
+        let data = {};
+        try { data = await res.json(); } catch { }
+        throw new Error(data.error || data.message || `Error fetching messages: ${res.status}`);
     }
-  });
 
-  if (!res.ok) {
-    throw new Error(`Error fetching messages: ${res.status}`);
-  }
-
-  return res.json();
+    return await res.json();
 }
 
 export async function sendMessage({ token, text, conversationId = null, csrfToken }) {
@@ -31,11 +33,12 @@ export async function sendMessage({ token, text, conversationId = null, csrfToke
     });
 
     if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.message || "Error sending message");
+        let data = {};
+        try { data = await res.json(); } catch { }
+        throw new Error(data.error || data.message || "Error sending message");
     }
 
-    return res.json();
+    return await res.json();
 }
 
 export async function deleteMessage({ token, id, csrfToken }) {
@@ -49,9 +52,10 @@ export async function deleteMessage({ token, id, csrfToken }) {
     });
 
     if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.message || "Error deleting message");
+        let data = {};
+        try { data = await res.json(); } catch { }
+        throw new Error(data.error || data.message || "Error deleting message");
     }
 
-    return res.json();
+    return await res.json();
 }

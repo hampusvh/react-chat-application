@@ -3,12 +3,12 @@ import { API_URL } from "../config/api";
 // Hämtar CSRF-token från servern (PATCH /csrf) och returnerar den
 export async function getCsrfToken() {
   const response = await fetch(`${API_URL}/csrf`, {
-    method: "PATCH", // VIKTIGT: CSRF kräver PATCH!
+    method: "PATCH",
     credentials: "include",
   });
 
   if (!response.ok) {
-    throw new Error("Kunde inte hämta CSRF-token");
+    throw new Error("Could not fetch CSRF-token");
   }
 
   const data = await response.json();
@@ -35,8 +35,11 @@ export async function registerUser({ username, email, password, avatar }) {
   });
 
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || "Registrering misslyckades");
+    let data = {};
+    try {
+      data = await response.json();
+    } catch { }
+    throw new Error(data.error || data.message || "Registration failed");
   }
 
   return await response.json();
@@ -60,9 +63,12 @@ export async function loginUser({ username, password }) {
   });
 
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || "Inloggning misslyckades");
+    let data = {};
+    try {
+      data = await response.json();
+    } catch { }
+    throw new Error(data.error || data.message || "Login failed");
   }
 
-  return await response.json(); // innehåller JWT + userinfo
+  return await response.json();
 }
