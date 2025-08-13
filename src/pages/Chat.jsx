@@ -19,22 +19,18 @@ const Chat = () => {
 
 
     useEffect(() => {
-        let isMounted = true;
         async function load() {
             try {
                 setError("");
 
                 const data = await getMessages(token);
 
-                if (!isMounted) return;
                 setMessages(Array.isArray(data) ? data : []);
             } catch (err) {
-                if (!isMounted) return;
                 setError(err?.message || "Kunde inte hämta meddelanden");
             }
         }
         load();
-        return () => { isMounted = false; };
     }, [token]);
 
     const handleChange = (e) => {
