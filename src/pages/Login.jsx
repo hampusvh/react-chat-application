@@ -4,7 +4,8 @@ import { loginUser } from "../api/auth";
 import { decodeToken } from "../utils/jwt";
 import "../styles/Auth.css";
 
-function Login() {
+const Login = () => {
+
     const [form, setForm] = useState({ username: "", password: "" });
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -20,11 +21,10 @@ function Login() {
         setError("");
 
         try {
-            const { token } = await loginUser(form);// du returnerar bara token-sträng
-            const decoded = decodeToken(token);  // plockar ut info från token
-            // console.log("Decoded token:", decoded);
+            const { token } = await loginUser(form);
+            const decoded = decodeToken(token);
 
-            // Spara token + användardata i localStorage
+            // Sparar token + data i localStorage
             localStorage.setItem("token", token);
             localStorage.setItem("userId", decoded?.id);
             localStorage.setItem("username", decoded?.user);

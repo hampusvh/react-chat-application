@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { getCsrfToken, registerUser } from "../api/auth";
+import { registerUser } from "../api/auth";
 import "../styles/Auth.css";
 
-function Register() {
+const Register = () => {
+
     const [form, setForm] = useState({
         username: "",
         email: "",
         password: "",
         avatar: ""
     });
+
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -23,7 +25,6 @@ function Register() {
         setError("");
 
         try {
-            await getCsrfToken();
             await registerUser(form);
             navigate("/login");
         } catch (err) {
@@ -62,7 +63,7 @@ function Register() {
                         required
                     />
                     <input
-                        type="text"
+                        type="url"
                         name="avatar"
                         placeholder="Avatar URL"
                         value={form.avatar}
