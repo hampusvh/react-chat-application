@@ -45,7 +45,6 @@ const Chat = () => {
             const { csrfToken } = await getCsrfToken();
             await sendMessage({ token, text, conversationId: null, csrfToken });
 
-            // Hämta uppdaterade meddelanden
             const fresh = await getMessages(token);
             setMessages(fresh);
             setInputText("");
@@ -69,20 +68,11 @@ const Chat = () => {
         try {
             const { csrfToken } = await getCsrfToken();
             await deleteMessage({ token, id, csrfToken });
-
-            // Antingen filtrera bort direkt:
             setMessages(prev => prev.filter(m => m.id !== id));
-
-            // ...eller refetcha:
-            // const fresh = await getMessages(token);
-            // setMessages(fresh);
-
         } catch (err) {
-            setError(err.message);
+            setError(err?.message || "Kunde inte radera meddelande");
         }
     };
-
-
 
     return (
         <div className="chat-wrapper">
