@@ -4,6 +4,10 @@ import "../styles/Chat.css";
 import { getMessages, sendMessage, deleteMessage } from "../api/messages";
 import { getCsrfToken } from "../api/auth";
 
+function sanitizeText(text) {
+    return text.replace(/[<>]/g, "").trim();
+}
+
 // Skapa (och spara) ett beständigt id för "Project" första gången.
 const getProjectId = () => {
     let id = localStorage.getItem("projectConversationId");
@@ -57,12 +61,15 @@ const Chat = () => {
     const handleChange = (e) => setInputText(e.target.value);
 
     const handleSend = async () => {
-        const text = inputText.trim();
-        if (!text || isSending) return;
+        if (isSending) return;
+
+        const cleanText = sanitizeText(inputText);
+        if (!cleanText) return; // stoppa om det är tomt eller bara otillåtna tecken
+
         try {
             setIsSending(true);
             const { csrfToken } = await getCsrfToken();
-            await sendMessage({ token, text, conversationId, csrfToken });
+            await sendMessage({ token, text: cleanText, conversationId, csrfToken });
 
             const fresh = await getMessages(token, conversationId);
             setMessages(fresh);
