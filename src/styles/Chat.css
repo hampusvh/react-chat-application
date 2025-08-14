@@ -1,4 +1,3 @@
-/* Chat.css */
 @import "./Variables.css";
 
 .chat-wrapper {
@@ -55,7 +54,6 @@
     color: var(--text);
     outline: none;
     border: 1px solid transparent;
-    /* lätt att öka kontrast senare */
 }
 
 .send-button {
@@ -90,13 +88,6 @@
     text-align: left;
 }
 
-.delete-btn-wrapper button {
-    visibility: hidden;
-}
-
-.delete-btn-wrapper:hover button {
-    visibility: visible;
-}
 
 .msg-delete-btn {
     background: transparent;

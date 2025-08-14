@@ -1,9 +1,9 @@
-
 import { useNavigate } from "react-router-dom";
+import MessageList from "./MessageList";
 
 import "../styles/SideNav.css";
 
-function SideNav() {
+function SideNav({ conversations = [], activeId, onSelect }) {
     const navigate = useNavigate();
 
     const avatar = localStorage.getItem("avatar");
@@ -25,8 +25,12 @@ function SideNav() {
                     </button>
                 </div>
             </div>
-            <div className="message-list-placeholder">
-                <p>No conversations yet</p>
+            <div className="message-list-container">
+                <MessageList
+                    conversations={conversations}
+                    activeId={activeId}
+                    onSelect={onSelect}
+                />
             </div>
             <button onClick={handleLogout} className="logout-button">
                 Sign out

@@ -1,7 +1,10 @@
 import { API_URL } from "../config/api";
 
-export async function getMessages(token) {
-    const res = await fetch(`${API_URL}/messages`, {
+export async function getMessages(token, conversationId) {
+    const url = conversationId
+        ? `${API_URL}/messages?conversationId=${encodeURIComponent(conversationId)}`
+        : `${API_URL}/messages`;
+    const res = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
