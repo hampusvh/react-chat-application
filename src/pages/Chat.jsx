@@ -8,7 +8,6 @@ function sanitizeText(text) {
     return text.replace(/[<>]/g, "").trim();
 }
 
-// Skapa (och spara) ett beständigt id för "Project" första gången.
 const getProjectId = () => {
     let id = localStorage.getItem("projectConversationId");
     if (!id) {
@@ -22,7 +21,6 @@ const Chat = () => {
     const myUserId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
-    // Två rum: General (null) och Project (UUID).
     const conversations = [
         { id: null, name: "General" },
         { id: getProjectId(), name: "Project" },
@@ -35,7 +33,7 @@ const Chat = () => {
         if (conversationId) {
             localStorage.setItem("currentConversationId", conversationId);
         } else {
-            localStorage.removeItem("currentConversationId"); // General
+            localStorage.removeItem("currentConversationId");
         }
     }, [conversationId]);
 
@@ -64,11 +62,11 @@ const Chat = () => {
         if (isSending) return;
 
         const cleanText = sanitizeText(inputText);
-        if (!cleanText) return; // stoppa om det är tomt eller bara otillåtna tecken
+        if (!cleanText) return;
 
         try {
             setIsSending(true);
-            const { csrfToken } = await getCsrfToken();
+            const csrfToken = await getCsrfToken();
             await sendMessage({ token, text: cleanText, conversationId, csrfToken });
 
             const fresh = await getMessages(token, conversationId);
@@ -92,7 +90,7 @@ const Chat = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Vill du radera meddelandet?")) return;
         try {
-            const { csrfToken } = await getCsrfToken();
+            const csrfToken = await getCsrfToken();
             await deleteMessage({ token, id, csrfToken });
             setMessages((prev) => prev.filter((m) => m.id !== id));
         } catch (err) {

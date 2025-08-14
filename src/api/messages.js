@@ -24,6 +24,7 @@ export async function getMessages(token, conversationId) {
 export async function sendMessage({ token, text, conversationId = null, csrfToken }) {
     const res = await fetch(`${API_URL}/messages`, {
         method: "POST",
+        credentials: "include",
         headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
@@ -47,6 +48,7 @@ export async function sendMessage({ token, text, conversationId = null, csrfToke
 export async function deleteMessage({ token, id, csrfToken }) {
     const res = await fetch(`${API_URL}/messages/${id}`, {
         method: "DELETE",
+        credentials: "include",
         headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"

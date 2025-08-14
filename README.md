@@ -68,7 +68,6 @@ src/
 │
 ├── components/
 │   ├── AvatarPreview.jsx  # Live-preview av avatar-URL
-│   ├── MessageInput.jsx   # Fält för att skriva nytt meddelande
 │   ├── MessageList.jsx    # Lista över meddelanden
 │   ├── ProtectedRoute.jsx # Åtkomstskydd för routes
 │   └── SideNav.jsx        # Navigering + Logout
