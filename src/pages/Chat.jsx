@@ -82,7 +82,7 @@ const Chat = () => {
                 <div className="chat-output">
 
                     {error && <div className="error">{error}</div>}
-                    {!error && messages.length === 0 && <div>Inga meddelanden ännu</div>}
+                    {!error && messages.length === 0 && <div>Write a new message ...</div>}
 
                     {messages.map((msg) => {
                         const isMine = String(msg.userId) === String(myUserId);
@@ -96,7 +96,7 @@ const Chat = () => {
                                             onClick={() => handleDelete(msg.id)}
                                             title="Radera meddelande"
                                         >
-                                            🗑️
+                                            ❌
                                         </button>
                                     </div>
                                 )}

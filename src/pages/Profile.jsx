@@ -46,6 +46,7 @@ const Profile = () => {
                                 Save (placeholder)
                             </button>
                         </div>
+                        <button className="delete-account">Terminate account</button>
                     </form>
                 </section>
             </main>
