@@ -4,12 +4,36 @@ import "../styles/Chat.css";
 import { getMessages, sendMessage, deleteMessage } from "../api/messages";
 import { getCsrfToken } from "../api/auth";
 
-
+// Skapa (och spara) ett beständigt id för "Project" första gången.
+const getProjectId = () => {
+    let id = localStorage.getItem("projectConversationId");
+    if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("projectConversationId", id);
+    }
+    return id;
+};
 
 const Chat = () => {
-
     const myUserId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
+
+    // Två rum: General (null) och Project (UUID).
+    const conversations = [
+        { id: null, name: "General" },
+        { id: getProjectId(), name: "Project" },
+    ];
+
+    const [conversationId, setConversationId] = useState(
+        localStorage.getItem("currentConversationId") || null
+    );
+    useEffect(() => {
+        if (conversationId) {
+            localStorage.setItem("currentConversationId", conversationId);
+        } else {
+            localStorage.removeItem("currentConversationId"); // General
+        }
+    }, [conversationId]);
 
     const [messages, setMessages] = useState([]);
     const [error, setError] = useState("");
@@ -17,25 +41,20 @@ const Chat = () => {
     const [inputText, setInputText] = useState("");
     const [isSending, setIsSending] = useState(false);
 
-
     useEffect(() => {
         async function load() {
             try {
                 setError("");
-
-                const data = await getMessages(token);
-
+                const data = await getMessages(token, conversationId);
                 setMessages(Array.isArray(data) ? data : []);
             } catch (err) {
                 setError(err?.message || "Kunde inte hämta meddelanden");
             }
         }
         load();
-    }, [token]);
+    }, [token, conversationId]);
 
-    const handleChange = (e) => {
-        setInputText(e.target.value);
-    };
+    const handleChange = (e) => setInputText(e.target.value);
 
     const handleSend = async () => {
         const text = inputText.trim();
@@ -43,9 +62,9 @@ const Chat = () => {
         try {
             setIsSending(true);
             const { csrfToken } = await getCsrfToken();
-            await sendMessage({ token, text, conversationId: null, csrfToken });
+            await sendMessage({ token, text, conversationId, csrfToken });
 
-            const fresh = await getMessages(token);
+            const fresh = await getMessages(token, conversationId);
             setMessages(fresh);
             setInputText("");
         } catch (err) {
@@ -68,7 +87,7 @@ const Chat = () => {
         try {
             const { csrfToken } = await getCsrfToken();
             await deleteMessage({ token, id, csrfToken });
-            setMessages(prev => prev.filter(m => m.id !== id));
+            setMessages((prev) => prev.filter((m) => m.id !== id));
         } catch (err) {
             setError(err?.message || "Kunde inte radera meddelande");
         }
@@ -76,11 +95,14 @@ const Chat = () => {
 
     return (
         <div className="chat-wrapper">
-            <SideNav />
+            <SideNav
+                conversations={conversations}
+                activeId={conversationId}
+                onSelect={setConversationId}
+            />
 
             <main className="chat-content">
                 <div className="chat-output">
-
                     {error && <div className="error">{error}</div>}
                     {!error && messages.length === 0 && <div>Inga meddelanden ännu</div>}
 
@@ -90,15 +112,14 @@ const Chat = () => {
                             <div key={msg.id} className={`message ${isMine ? "mine" : "other"}`}>
                                 <span className="message-text">{msg.text}</span>
                                 {isMine && (
-                                    <div className="delete-btn-wrapper">
-                                        <button
-                                            className="msg-delete-btn"
-                                            onClick={() => handleDelete(msg.id)}
-                                            title="Radera meddelande"
-                                        >
-                                            🗑️
-                                        </button>
-                                    </div>
+                                    <button
+                                        className="msg-delete-btn"
+                                        onClick={() => handleDelete(msg.id)}
+                                        title="Radera meddelande"
+                                        aria-label="Radera meddelande"
+                                    >
+                                        ❌
+                                    </button>
                                 )}
                             </div>
                         );
@@ -124,7 +145,6 @@ const Chat = () => {
                         {isSending ? "Sending..." : "Send"}
                     </button>
                 </div>
-
             </main>
         </div>
     );
