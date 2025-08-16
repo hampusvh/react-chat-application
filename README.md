@@ -25,8 +25,8 @@
 - Skapar nya meddelanden via `POST /messages`
 - Raderar egna meddelanden via `DELETE /messages/{id}`
 - Visar:
-  - Egna meddelanden till höger (blå bubbla)
-  - Andras meddelanden till vänster (grå bubbla)
+  - Egna meddelanden till höger
+  - Andras meddelanden till vänster
 - Meddelanden saneras innan de skickas för att förhindra XSS
 
 ### Profilhantering
