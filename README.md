@@ -4,59 +4,69 @@
   A simple but functional chat application built with React and Vite.
 </p>
 
----
+## Utvecklingsresa
 
-##  Funktionalitet
+### 1. Projektstart
+- Initierade projektet med `npm create vite@latest`.
+- Satte upp **grundstruktur** med React Router och en enkel layout.
 
-###  Autentisering
+### 2. Autentisering
+- Implementerade **registrering** med CSRF-skydd och validering av unika användarnamn.
+- Laddade in **inloggning** med JWT-token som sparas i `localStorage`.
+- Skapade **ProtectedRoute** för att skydda chatt- och profilsidor.
+- Lät appen visa användarens **namn och avatar** efter inloggning.
 
-- **Registrering** sker via `POST /auth/register`
-- **Inloggning** sker via `POST /auth/token`  
+### 3. Chatfunktionalitet
+- Kopplade upp mot `/messages` för att hämta och visa meddelanden.
+- Delade upp UI så att **egna meddelanden hamnar till höger**, andras till vänster.
+- Lade till **skapa nya meddelanden**, med sanitering av innehållet innan det skickas.
+- Införde möjlighet att **radera egna meddelanden**.
 
-- Vid lyckad inloggning returneras en **JWT-token** som innehåller:
-  - användar-ID
-  - användarnamn
-  - avatar-URL  
-- JWT-token sparas i `localStorage` och används för att kontrollera åtkomst till skyddade sidor
-- En **CSRF-token** hämtas via `PATCH /csrf` och används endast vid registrering och inloggning
+### 4. Navigation och logout
+- Byggde en **SideNav** med avatar, användarnamn och logout-knapp.
+- Logout rensar token och skickar tillbaka användaren till login.
 
-### Chat
-- Hämtar meddelanden via `GET /messages`
-- Skapar nya meddelanden via `POST /messages`
-- Raderar egna meddelanden via `DELETE /messages/{id}`
-- Visar:
-  - Egna meddelanden till höger
-  - Andras meddelanden till vänster
-- Meddelanden saneras innan de skickas för att förhindra XSS
+### 5. Profilsida
+- Lade till en **Profile-sida** där användaren kan uppdatera användarnamn, e-post och avatar.
+- Införde **avatar-preview** när en ny bild-URL anges.
+- Implementerade **radera konto** → med varning, feedback och automatisk utloggning.
 
-### Profilhantering
-- Användaren kan:
-  - Se och uppdatera sin användardata (`PUT /user`)
-  - Radera sitt konto (`DELETE /users/{id}`)
-- Avatar-URL visas i realtid som förhandsvisning
-- Vid radering rensas `localStorage` och användaren skickas till `/register`
+### 6. Flera konversationer
+- Utökade chatten till att hantera **flera konversationer** via `conversationId`.
+- Satte upp stöd för minst två separata konversationer.
 
-### Navigering
-- `SideNav` visar:
-  - Avatar
-  - Användarnamn
-  - Länkar till Profil och Logout
-- `ProtectedRoute` används för att hindra åtkomst till `/chat` och `/profile` utan JWT
+### 7. Säkerhet
+- Införde **CSP (Content-Security-Policy)** via Netlify `_headers` för att begränsa bildkällor till betrodda domäner.
+- Säkerställde att JWT-token kontrolleras mot expiration.
+- Implementerade enkel sanitering av chattmeddelanden för att undvika skadlig HTML.
 
-### Säkerhet
+### 8. Loggning och monitorering
+- Integrerade **Sentry** för loggning och felövervakning.
+- Kan följa fel och händelser i applikationen i realtid.
 
-- CSRF-token krävs endast vid registrering och inloggning. Efter det används JWT i Authorization-headern för skyddade anrop
-- Inkluderar **Content Security Policy (CSP)** i `index.html`, som endast tillåter bilder från:
-  - `https://i.pravatar.cc`
-  - `https://freeimage.host`
-- JWT-token verifieras och kontrolleras för utgångsdatum
-
-### Extra funktioner (VG-nivå)
-- Loggning av fel med hjälp av [Sentry](https://sentry.io) via `config/sentry.js`
-- Stöd för konversationer via `conversationId` (frivillig för VG)
-- Deployment på Netlify med fungerande CORS-konfiguration från API:t
+### 9. Deployment
+- Hostade projektet på **Netlify** med automatiska builds.
+- Verifierade att CORS fungerar korrekt mot Chatify API.
 
 ---
+
+## Teknisk översikt
+- **Frontend:** React + Vite
+- **Routing:** React Router
+- **State & Auth:** localStorage + JWT decode
+- **API-kommunikation:** Fetch + CSRF-hantering
+- **Säkerhet:** CSP, sanitering av inputs, JWT-expiration
+- **Loggning:** Sentry
+- **Hosting:** Netlify
+
+---
+
+## Installation
+```bash
+git clone <repo>
+cd chats-app
+npm install
+npm run dev
 
 ## 🗂 Filstruktur (src/)
 
