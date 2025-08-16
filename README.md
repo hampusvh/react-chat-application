@@ -17,8 +17,8 @@
   - användar-ID
   - användarnamn
   - avatar-URL  
-- JWT-token sparas i `localStorage` och används för att kontrollera åtkomst till skyddade sidor.
-- En **CSRF-token** hämtas före alla skrivande operationer via `PATCH /csrf`.
+- JWT-token sparas i `localStorage` och används för att kontrollera åtkomst till skyddade sidor
+- En **CSRF-token** hämtas via `PATCH /csrf` och används endast vid registrering och inloggning
 
 ### Chat
 - Hämtar meddelanden via `GET /messages`
@@ -44,7 +44,8 @@
 - `ProtectedRoute` används för att hindra åtkomst till `/chat` och `/profile` utan JWT
 
 ### Säkerhet
-- CSRF-token krävs för `POST`, `PUT`, `DELETE`
+
+- CSRF-token krävs endast vid registrering och inloggning. Efter det används JWT i Authorization-headern för skyddade anrop
 - Inkluderar **Content Security Policy (CSP)** i `index.html`, som endast tillåter bilder från:
   - `https://i.pravatar.cc`
   - `https://freeimage.host`
