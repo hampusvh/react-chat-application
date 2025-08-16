@@ -1,10 +1,8 @@
-<h1 align="center">Chats-App</h1>
+<h1 align="center">React Chat App</h1>
 
 <p align="center">
-  A simple but functional chat application built with React and Vite.
+  A web-based chat application built with React and Vite, powered by the Chatify API.
 </p>
-
-## Utvecklingsresa
 
 ### 1. Projektstart
 - Initierade projektet med `npm create vite@latest`.
@@ -60,13 +58,6 @@
 - **Hosting:** Netlify
 
 ---
-
-## Installation
-```bash
-git clone <repo>
-cd chats-app
-npm install
-npm run dev
 
 ## 🗂 Filstruktur (src/)
 
