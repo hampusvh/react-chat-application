@@ -4,60 +4,46 @@
   A web-based chat application built with React and Vite, powered by the Chatify API.
 </p>
 
-### 1. Projektstart
-- Initierade projektet med `npm create vite@latest`.
-- Satte upp **grundstruktur** med React Router och en enkel layout.
-
-### 2. Autentisering
-- Implementerade **registrering** med CSRF-skydd och validering av unika användarnamn.
-- Laddade in **inloggning** med JWT-token som sparas i `localStorage`.
-- Skapade **ProtectedRoute** för att skydda chatt- och profilsidor.
-- Lät appen visa användarens **namn och avatar** efter inloggning.
-
-### 3. Chatfunktionalitet
-- Kopplade upp mot `/messages` för att hämta och visa meddelanden.
-- Delade upp UI så att **egna meddelanden hamnar till höger**, andras till vänster.
-- Lade till **skapa nya meddelanden**, med sanitering av innehållet innan det skickas.
-- Införde möjlighet att **radera egna meddelanden**.
-
-### 4. Navigation och logout
-- Byggde en **SideNav** med avatar, användarnamn och logout-knapp.
-- Logout rensar token och skickar tillbaka användaren till login.
-
-### 5. Profilsida
-- Lade till en **Profile-sida** där användaren kan uppdatera användarnamn, e-post och avatar.
-- Införde **avatar-preview** när en ny bild-URL anges.
-- Implementerade **radera konto** → med varning, feedback och automatisk utloggning.
-
-### 6. Flera konversationer
-- Utökade chatten till att hantera **flera konversationer** via `conversationId`.
-- Satte upp stöd för minst två separata konversationer.
-
-### 7. Säkerhet
-- Införde **CSP (Content-Security-Policy)** via Netlify `_headers` för att begränsa bildkällor till betrodda domäner.
-- Säkerställde att JWT-token kontrolleras mot expiration.
-- Implementerade enkel sanitering av chattmeddelanden för att undvika skadlig HTML.
-
-### 8. Loggning och monitorering
-- Integrerade **Sentry** för loggning och felövervakning.
-- Kan följa fel och händelser i applikationen i realtid.
-
-### 9. Deployment
-- Hostade projektet på **Netlify** med automatiska builds.
-- Verifierade att CORS fungerar korrekt mot Chatify API.
-
 ---
 
-## Teknisk översikt
-- **Frontend:** React + Vite
-- **Routing:** React Router
-- **State & Auth:** localStorage + JWT decode
-- **API-kommunikation:** Fetch + CSRF-hantering
-- **Säkerhet:** CSP, sanitering av inputs, JWT-expiration
-- **Loggning:** Sentry
-- **Hosting:** Netlify
+## Applikationsbeskrivning
+Detta projekt är en webbaserad chattapplikation byggd med **React** och **Vite**, som använder **Chatify API** för autentisering, meddelandehantering och profilhantering. Applikationen är lösenordsskyddad och tillgänglig endast för registrerade användare.
 
----
+## Autentisering
+Autentisering hanteras genom en kombination av CSRF- och JWT-tokens 
+- En CSRF-token hämtas initialt via `PATCH /csrf` och används vid registrering och inloggning  
+- Vid lyckad inloggning returneras en JWT som sparas i `localStorage` och används i `Authorization`-headern för skyddade anrop 
+- Applikationen tillämpar `ProtectedRoute` för att endast tillåta åtkomst till chatten och profilsidan för inloggade användare
+- Efter inloggning visas användarens användarnamn och avatar i gränssnittet
+
+## Chat
+Chatten kommunicerar mot `/messages`-endpointen och erbjuder följande funktioner:  
+- Hämtning och visning av meddelanden
+- Egna meddelanden renderas till höger, andras till vänster
+- Skapande av nya meddelanden med sanitering av innehållet för att förhindra XSS
+- Möjlighet att radera egna meddelanden  
+- Stöd för flera konversationer via `conversationId`
+
+## Profilhantering
+Användaren kan hantera sin profil via `/user`- och `/users`-endpoints. 
+Funktioner inkluderar:  
+- Uppdatering av användarnamn, e-post, lösenord och avatar  
+- Avatar-preview i realtid när en ny bild-URL anges
+- Radering av konto, vilket ger feedback/varning, rensar `localStorage` och loggar ut användaren
+
+## Navigering och logout
+Navigationen hanteras genom en `SideNav`-komponent som visar avatar, användarnamn och länkar till profil samt logout. Vid utloggning rensas JWT och användaren redirectas till login-sidan.
+
+## Säkerhet
+- CSRF-token används endast vid registrering och inloggning
+- JWT verifieras och kontrolleras mot utgångsdatum
+- **Content Security Policy (CSP)** begränsar tillåtna bildkällor till betrodda domäner (`i.pravatar.cc`, `freeimage.host`) 
+- Alla meddelanden saneras innan de skickas för att motverka XSS
+
+## Extra funktionalitet
+- **Loggning och monitorering** via [Sentry](https://sentry.io) 
+- **Flera konversationer** stöds genom `conversationId` 
+- Deployment på **Netlify** med fungerande CORS-konfiguration
 
 ## 🗂 Filstruktur (src/)
 
@@ -75,8 +61,7 @@ src/
 │   └── SideNav.jsx        # Navigering + Logout
 │
 ├── config/
-│   ├── api.js             # Innehåller API_URL som hanterar API-anrop
-│   └── sentry.js          # Sentry-initiering för felrapportering
+│   └── api.js             # Innehåller API_URL som hanterar API-anrop
 │
 ├── pages/
 │   ├── Chat.jsx           # Chattgränssnitt med meddelandehantering
@@ -95,3 +80,4 @@ src/
 │
 ├── App.jsx                # Routing + ProtectedRoute-logik
 └── main.jsx               # Entrypoint, mountar App
+
