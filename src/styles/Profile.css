@@ -52,19 +52,16 @@
     padding: 24px;
 }
 
-/* ---- Form layout ---- */
 .profile-form {
     display: grid;
     grid-template-columns: 160px 1fr;
     gap: 12px 16px;
     max-width: 640px;
     margin: 0 auto;
-    /* centrera grid i kortet */
 }
 
 .profile-form .form-row {
     display: contents;
-    /* låter label/input hamna i rätt kolumn */
 }
 
 .profile-form label {
@@ -84,7 +81,6 @@
     outline: none;
 }
 
-/* ---- Actions ---- */
 .actions {
     grid-column: 2;
     display: flex;
@@ -98,8 +94,6 @@
     padding: 0 1rem;
     border-radius: var(--radius-sm);
     border: 1px solid transparent;
-    cursor: not-allowed;
-    /* placeholder */
 }
 
 .btn.primary {
@@ -113,7 +107,6 @@
     border-color: var(--border);
 }
 
-/* ---- Delete ---- */
 .delete-account {
     grid-column: 1 / -1;
     width: 100%;
@@ -133,18 +126,14 @@
     border: none;
 }
 
-/* ---- Avatar preview ---- */
 .avatar-preview {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     overflow: hidden;
-    /* <-- viktigt */
     margin: 0;
-    /* behåll din layout */
 }
 
-/* Fyll hela cirkeln */
 .avatar-preview__img {
     width: 100%;
     height: 100%;
@@ -154,7 +143,6 @@
 
 .avatar-preview-row {
     grid-column: 1 / -1;
-    /* egen rad över hela gridens bredd */
     display: flex;
     justify-content: center;
     margin-top: 8px;

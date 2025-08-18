@@ -27,7 +27,7 @@ Chatten kommunicerar mot `/messages`-endpointen och erbjuder följande funktione
 ## Profilhantering
 Användaren kan hantera sin profil via `/user`- och `/users`-endpoints. 
 Funktioner inkluderar:  
-- Uppdatering av användarnamn, e-post, lösenord och avatar  
+- Uppdatering av användarnamn, e-post och avatar  
 - Avatar-preview i realtid när en ny bild-URL anges
 - Radering av konto, vilket ger feedback/varning, rensar `localStorage` och loggar ut användaren
 

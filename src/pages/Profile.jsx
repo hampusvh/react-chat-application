@@ -11,6 +11,7 @@ const isValidUrl = (url) => {
 };
 
 const Profile = () => {
+
     const navigate = useNavigate();
 
     // initiera fälten; just nu har du bara avatar sparad lokalt

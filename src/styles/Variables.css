@@ -9,20 +9,16 @@
     --text: #f8fafc;
     --text-soft: #cbd5e1;
 
-    /* Accent färger – används nu för chat-relaterade actions, inte Profile */
     --accent: #06b6d4;
     --accent-strong: #22d3ee;
     --on-accent: #00272b;
 
-    /* Diskreta knappar (Profile settings) */
     --secondary-bg: var(--surface-2);
     --secondary-text: var(--text);
     --secondary-border: var(--panel-grad-2);
 
-    /* Danger (Logout) – nedtonad default, röd på hover */
     --danger-bg: var(--surface-2);
     --danger-text: #f87171;
-    /* mild röd text */
     --danger-border: #2e2e2e;
     --danger-hover-bg: #f87171;
     --danger-hover-text: #ffffff;
