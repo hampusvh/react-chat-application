@@ -35,7 +35,6 @@ const Profile = () => {
             // (Skicka inte password om det inte stöds av API:t)
             await updateUser({ token, userId, updatedData, csrfToken });
 
-            // håll UI i synk med servern
             localStorage.setItem("username", username);
             localStorage.setItem("avatar", avatar);
 

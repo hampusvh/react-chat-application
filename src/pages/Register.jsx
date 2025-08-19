@@ -13,20 +13,24 @@ const Register = () => {
     });
 
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
     const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
         if (error) setError("");
+        if (success) setSuccess("");
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
+        setSuccess("");
 
         try {
             await registerUser(form);
-            navigate("/login");
+            setSuccess("Registration successful! Redirecting...");
+            setTimeout(() => navigate("/login"), 1500);
         } catch (err) {
             setError(err.message || "Registration failed");
         }
@@ -34,7 +38,6 @@ const Register = () => {
 
     return (
         <div className="auth-page">
-
             <div className="auth-container">
                 <h2>Register</h2>
                 <form onSubmit={handleSubmit}>
@@ -70,6 +73,7 @@ const Register = () => {
                         onChange={handleChange}
                     />
                     {error && <p className="error">{error}</p>}
+                    {success && <p className="success">{success}</p>}
                     <button className="auth-button" type="submit">Sign up</button>
                 </form>
                 <p>
