@@ -22,8 +22,8 @@ const Chat = () => {
     const token = localStorage.getItem("token");
 
     const conversations = [
-        { id: null, name: "General" },
-        { id: getProjectId(), name: "Project" },
+        { id: null, name: "Conversation 1" },
+        { id: getProjectId(), name: "Conversation 2" },
     ];
 
     const [conversationId, setConversationId] = useState(

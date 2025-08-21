@@ -58,6 +58,7 @@ const Profile = () => {
 
     return (
         <div className="profile-wrapper">
+
             <SideNav />
 
             <main className="profile-content">

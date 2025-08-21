@@ -7,7 +7,7 @@
 ---
 
 ## Applikationsbeskrivning
-Detta projekt är en webbaserad chattapplikation byggd med **React** och **Vite**, som använder **Chatify API** för autentisering, meddelandehantering och profilhantering. Applikationen är lösenordsskyddad och tillgänglig endast för registrerade användare.
+Detta projekt är en webbaserad chattapplikation byggd med **React** och **Vite**, som använder **Chatify API** för autentisering, meddelandehantering och profilhantering. Applikationen kräver registrering och inloggning för att kunna användas.
 
 ## Autentisering
 Autentisering hanteras genom en kombination av CSRF- och JWT-tokens 
@@ -70,9 +70,9 @@ src/
 │   └── Register.jsx       # Registreringsformulär
 │
 ├── styles/
-│   ├── Auth.css           # Gemensam CSS för Login/Register
+│   ├── Auth.css           # Styling för Login/Register
 │   ├── Chat.css           # Styling för chatkomponenter
-│   ├── Global.css         # Reset och globala variabler
+│   ├── Global.css         # Styling för globala variabler
 │   └── SideNav.css        # Styling för navigering
 │
 ├── utils/

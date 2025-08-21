@@ -22,6 +22,7 @@ const Login = () => {
 
         try {
             const { token } = await loginUser(form);
+            // TODO: se över varför decodeToken returnerar null
             const decoded = decodeToken(token);
 
             localStorage.setItem("token", token);
