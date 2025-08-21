@@ -1,6 +1,5 @@
 import { API_URL } from "../config/api";
 
-// PUT /user
 export async function updateUser({ token, userId, updatedData, csrfToken }) {
     const res = await fetch(`${API_URL}/user`, {
         method: "PUT",
@@ -17,7 +16,6 @@ export async function updateUser({ token, userId, updatedData, csrfToken }) {
     return data;
 }
 
-// DELETE /users/{userId}
 export async function deleteUser({ token, userId, csrfToken }) {
     const res = await fetch(`${API_URL}/users/${userId}`, {
         method: "DELETE",

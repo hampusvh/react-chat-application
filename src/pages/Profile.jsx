@@ -14,10 +14,9 @@ const Profile = () => {
 
     const navigate = useNavigate();
 
-    // initiera fälten; just nu har du bara avatar sparad lokalt
     const [username, setUsername] = useState(localStorage.getItem("username") || "");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState(""); // om du inte ska skicka lösen kan du ignorera detta i updatedData
+    const [password, setPassword] = useState("");
     const [avatar, setAvatar] = useState(localStorage.getItem("avatar") || "");
 
     const [error, setError] = useState("");
@@ -32,7 +31,6 @@ const Profile = () => {
         try {
             const csrfToken = await getCsrfToken();
             const updatedData = { username, email, avatar };
-            // (Skicka inte password om det inte stöds av API:t)
             await updateUser({ token, userId, updatedData, csrfToken });
 
             localStorage.setItem("username", username);

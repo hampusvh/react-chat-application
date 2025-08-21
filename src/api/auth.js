@@ -1,6 +1,5 @@
 import { API_URL } from "../config/api";
 
-// Hämtar CSRF-token från servern (PATCH /csrf) och returnerar den
 export async function getCsrfToken() {
   const response = await fetch(`${API_URL}/csrf`, {
     method: "PATCH",
@@ -15,7 +14,6 @@ export async function getCsrfToken() {
   return data.csrfToken;
 }
 
-// Skickar användardata till /auth/register
 export async function registerUser({ username, email, password, avatar }) {
   const csrfToken = await getCsrfToken();
 
@@ -45,7 +43,6 @@ export async function registerUser({ username, email, password, avatar }) {
   return await response.json();
 }
 
-// Skickar login-request till /auth/token
 export async function loginUser({ username, password }) {
   const csrfToken = await getCsrfToken();
 

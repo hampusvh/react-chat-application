@@ -24,7 +24,6 @@ const Login = () => {
             const { token } = await loginUser(form);
             const decoded = decodeToken(token);
 
-            // Sparar token + data i localStorage
             localStorage.setItem("token", token);
             localStorage.setItem("userId", decoded?.id);
             localStorage.setItem("username", decoded?.user);
