@@ -1,83 +1,97 @@
-<h1 align="center">React Chat App</h1>
+# React Chat Application
 
-<p align="center">
-  A web-based chat application built with React and Vite, powered by the Chatify API.
-</p>
+This project is a web-based chat application built with React and Vite, powered by the Chatify API for authentication, messaging, and user profile management.
+
+The application requires user registration and authentication and provides real-time messaging, profile management, and multi-conversation support with a strong focus on security.
 
 ---
 
-## Applikationsbeskrivning
-Detta projekt är en webbaserad chattapplikation byggd med **React** och **Vite**, som använder **Chatify API** för autentisering, meddelandehantering och profilhantering. Applikationen kräver registrering och inloggning för att kunna användas.
+## Overview
 
-## Autentisering
-Autentisering hanteras genom en kombination av CSRF- och JWT-tokens 
-- En CSRF-token hämtas initialt via `PATCH /csrf` och används vid registrering och inloggning  
-- Vid lyckad inloggning returneras en JWT som sparas i `localStorage` och används i `Authorization`-headern för skyddade anrop 
-- Applikationen tillämpar `ProtectedRoute` för att endast tillåta åtkomst till chatten och profilsidan för inloggade användare
-- Efter inloggning visas användarens användarnamn och avatar i gränssnittet
+The application allows authenticated users to participate in conversations, manage their profiles, and exchange messages in a secure environment. Access to chat and profile functionality is restricted to authenticated users only.
 
-## Chat
-Chatten kommunicerar mot `/messages`-endpointen och erbjuder följande funktioner:  
-- Hämtning och visning av meddelanden
-- Egna meddelanden renderas till höger, andras till vänster
-- Skapande av nya meddelanden med sanitering av innehållet för att förhindra XSS
-- Möjlighet att radera egna meddelanden  
-- Stöd för flera konversationer via `conversationId`
+---
 
-## Profilhantering
-Användaren kan hantera sin profil via `/user`- och `/users`-endpoints. 
-Funktioner inkluderar:  
-- Uppdatering av användarnamn, e-post och avatar  
-- Avatar-preview i realtid när en ny bild-URL anges
-- Radering av konto, vilket ger feedback/varning, rensar `localStorage` och loggar ut användaren
+## Features
 
-## Navigering och logout
-Navigationen hanteras genom en `SideNav`-komponent som visar avatar, användarnamn och länkar till profil samt logout. Vid utloggning rensas JWT och användaren redirectas till login-sidan.
+### Authentication
+- User registration and login using the Chatify API
+- CSRF token fetched via `PATCH /csrf` and used during registration and login
+- JWT returned upon successful authentication and stored in `localStorage`
+- Protected routes ensure that only authenticated users can access chat and profile pages
+- Display of the authenticated user’s username and avatar in the interface
 
-## Säkerhet
-- CSRF-token används endast vid registrering och inloggning
-- JWT verifieras och kontrolleras mot utgångsdatum
-- **Content Security Policy (CSP)** begränsar tillåtna bildkällor till betrodda domäner (`i.pravatar.cc`, `freeimage.host`) 
-- Alla meddelanden saneras innan de skickas för att motverka XSS
+### Chat Functionality
+- Communication with the `/messages` endpoint
+- Fetching and displaying messages in conversations
+- Own messages rendered on the right, other users’ messages on the left
+- Creation of new messages with content sanitization to prevent XSS
+- Deletion of the user’s own messages
+- Support for multiple conversations using `conversationId`
 
-## Extra funktionalitet
-- **Loggning och monitorering** via [Sentry](https://sentry.io) 
-- **Flera konversationer** stöds genom `conversationId` 
-- Deployment på **Netlify** med fungerande CORS-konfiguration
+### Profile Management
+- Profile handling via `/user` and `/users` endpoints
+- Update of username, email, and avatar
+- Real-time avatar preview when entering a new image URL
+- Account deletion with confirmation feedback, cleanup of `localStorage`, and automatic logout
 
-## 🗂 Filstruktur (src/)
+### Navigation and Logout
+- Navigation handled through a `SideNav` component
+- Displays user avatar, username, and navigation links
+- Logout clears the JWT and redirects the user to the login page
 
-```plaintext
+---
+
+## Security Considerations
+
+- CSRF tokens are used exclusively during registration and login
+- JWTs are validated and checked for expiration
+- A strict **Content Security Policy (CSP)** limits allowed image sources to trusted domains (`i.pravatar.cc`, `freeimage.host`)
+- All user-generated message content is sanitized before being sent to prevent XSS attacks
+
+---
+
+## Additional Functionality
+
+- Error logging and monitoring via **Sentry**
+- Support for multiple conversations using `conversationId`
+- Deployment on **Netlify** with a working CORS configuration
+
+---
+
+## Project Structure (src/)
+
+```
 src/
 ├── api/
-│   ├── auth.js            # Login, register, hämta CSRF-token
-│   ├── messages.js        # CRUD för meddelanden
-│   └── user.js            # Hämta, uppdatera och radera användare
+│   ├── auth.js            # Login, register, fetch CSRF token
+│   ├── messages.js        # Message CRUD operations
+│   └── user.js            # Fetch, update, and delete users
 │
 ├── components/
-│   ├── AvatarPreview.jsx  # Live-preview av avatar-URL
-│   ├── MessageList.jsx    # Lista över meddelanden
-│   ├── ProtectedRoute.jsx # Åtkomstskydd för routes
-│   └── SideNav.jsx        # Navigering + Logout
+│   ├── AvatarPreview.jsx  # Live preview of avatar URL
+│   ├── MessageList.jsx    # Message list rendering
+│   ├── ProtectedRoute.jsx # Route protection
+│   └── SideNav.jsx        # Navigation and logout
 │
 ├── config/
-│   └── api.js             # Innehåller API_URL som hanterar API-anrop
+│   └── api.js             # API_URL configuration
 │
 ├── pages/
-│   ├── Chat.jsx           # Chattgränssnitt med meddelandehantering
-│   ├── Login.jsx          # Inloggningsformulär
-│   ├── Profile.jsx        # (VG) Redigera och radera användare
-│   └── Register.jsx       # Registreringsformulär
+│   ├── Chat.jsx           # Chat interface and message handling
+│   ├── Login.jsx          # Login form
+│   ├── Profile.jsx        # Edit and delete user profile
+│   └── Register.jsx       # Registration form
 │
 ├── styles/
-│   ├── Auth.css           # Styling för Login/Register
-│   ├── Chat.css           # Styling för chatkomponenter
-│   ├── Global.css         # Styling för globala variabler
-│   └── SideNav.css        # Styling för navigering
+│   ├── Auth.css           # Login and register styling
+│   ├── Chat.css           # Chat component styling
+│   ├── Global.css         # Global styles
+│   └── SideNav.css        # Navigation styling
 │
 ├── utils/
 │   └── jwt.js             # decodeToken(), isTokenExpired()
 │
-├── App.jsx                # Routing + ProtectedRoute-logik
-└── main.jsx               # Entrypoint, mountar App
-
+├── App.jsx                # Routing and protected routes
+└── main.jsx               # Application entry point
+```
